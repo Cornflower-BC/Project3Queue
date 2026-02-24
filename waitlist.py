@@ -69,12 +69,11 @@ waitlist = Queue()
 waitlist.add(Student("Mary", "Lamb"))
 waitlist.add(Student("Andrew", "Smith"))
 waitlist.add(Student("Link", "Zelda"))
-linkLength = waitlist.size
 
-for i in range(linkLength):
+for i in range(waitlist.size):
     print(repr(waitlist))
     print(str(waitlist))
     waitlist.pop_left()
     print("\n")
     if waitlist.is_empty():
-        print("Waitlist Status: Empty")
+        print("Waitlist Status: Empty") #Didn't work in __repr__ method, unsure why, probably a run value error.
