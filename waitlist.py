@@ -1,3 +1,5 @@
+import random
+
 class Node:
     def __init__(self, initdata):
         self.data = initdata
@@ -42,8 +44,37 @@ class Queue:
             node = node.next
 
     def __repr__(self):
-        return_str = "Queue object: "
+        return_str = "Waitlist Status: "
         for node in self:
-            return_str = return_str + node.data + " -- "
+            return_str = return_str + node.data.first + " " + node.data.last + " -- "
+            if not node.next:
+                return_str = return_str[:-3] + "\nSize is " + str(self.size)
         return return_str
+
+    def __str__(self):
+        return f"{self.head.data.first} {self.head.data.last} ID: {self.head.data.sid} has been moved off the waitlist."
+    
+
+class Student:
+    def __init__(self, first, last, sid = 0):
+        self.first = first
+        self.last = last
+        self.sid = random.randint(1000000, 9999999) #I had to define here and not in __init__ due to some weird bug with all objects having the same ID.
+
+    def __str__(self):
+        if __name__ == '__main__':
+            return f"First Name: {self.first}\nLast Name: {self.last}\nStudent ID: {self.sid}\n"
         
+waitlist = Queue()
+waitlist.add(Student("Mary", "Lamb"))
+waitlist.add(Student("Andrew", "Smith"))
+waitlist.add(Student("Link", "Zelda"))
+linkLength = waitlist.size
+
+for i in range(linkLength):
+    print(repr(waitlist))
+    print(str(waitlist))
+    waitlist.pop_left()
+    print("\n")
+    if waitlist.is_empty():
+        print("Waitlist Status: Empty")
